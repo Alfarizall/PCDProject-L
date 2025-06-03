@@ -38,7 +38,7 @@ Prediksi jenis sampah dari gambar:
     python src/predict_image.py
 Atur path gambar pada script atau input sesuai kebutuhan.
 
-🛠️ Kebutuhan
+## 🛠️ Kebutuhan
 Python 3.x
 OpenCV (opencv-python)
 scikit-learn
@@ -47,14 +47,19 @@ numpy
 Install dependencies:
 pip install -r requirements.txt
 
-📜 Penjelasan Script
-extract_kertas.py, extract_logam.py, extract_plastik.py
+## 📜 Penjelasan Script
+     ```sh
+    extract_kertas.py, extract_logam.py, extract_plastik.py
 Ekstraksi fitur warna, bentuk, dan tekstur dari gambar di masing-masing folder dataset.
-combine_features.py
-Menggabungkan semua file fitur menjadi satu dataset gabungan.
-train_classifiers.py
+    ```sh
+    combine_features.py
+    Menggabungkan semua file fitur menjadi satu dataset gabungan.
+   ```sh
+    train_classifiers.py
 Melatih model KNN dan SVM dari dataset gabungan.
-predict_image.py
+   ```sh
+    predict_image.py
 Melakukan prediksi jenis sampah dari gambar baru.
-test_image/
-Contoh gambar untuk pengujian.
+    
+    test_image/
+    Contoh gambar untuk pengujian.
