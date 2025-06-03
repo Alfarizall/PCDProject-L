@@ -22,17 +22,20 @@ Hasil: file fitur .csv di folder features/.
 
 2. Gabungkan Fitur 🗃️
 Gabungkan semua fitur menjadi satu dataset:
-python src/combine_features.py
+    ```sh
+    python src/combine_features.py
 Hasil: dataset_fitur_gabungan.csv
 
 3. Training Model 🤖
 Latih model KNN & SVM:
-python src/train_classifiers.py
+     ```sh
+    python src/train_classifiers.py
 Hasil: file model .pkl di folder models/.
 
 4. Prediksi Gambar Baru 🔍
 Prediksi jenis sampah dari gambar:
-python src/predict_image.py
+     ```sh
+    python src/predict_image.py
 Atur path gambar pada script atau input sesuai kebutuhan.
 
 🛠️ Kebutuhan
