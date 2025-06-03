@@ -5,7 +5,35 @@ Klasifikasi Sampah Otomatis 🗑️ menggunakan Ekstraksi Fitur Citra dan Machin
 ---
 
 ## 📁 Struktur Folder
-dataset/ kertas/ logam/ plastik/ features/ kertas_features.csv logam_features.csv plastik_features.csv dataset_fitur_gabungan.csv models/ knn_model.pkl svm_model.pkl label_encoder.pkl src/ extract_kertas.py extract_logam.py extract_plastik.py combine_features.py train_classifiers.py predict_image.py test_image/ sampel1.jpg
+PCDProject-L/
+├── dataset/
+│ ├── kertas/
+│ ├── logam/
+│ └── plastik/
+├── features/
+│ ├── kertas_features.csv
+│ ├── logam_features.csv
+│ ├── plastik_features.csv
+│ └── dataset_fitur_gabungan.csv
+├── models/
+│ ├── knn_model.pkl
+│ ├── svm_model.pkl
+│ └── label_encoder.pkl
+├── src/
+│ ├── extract_kertas.py
+│ ├── extract_logam.py
+│ ├── extract_plastik.py
+│ ├── combine_features.py
+│ ├── train_classifiers.py
+│ └── predict_image.py
+├── test_image/
+│ └── sampel1.jpg
+└── requirements.txt
+
+yaml
+Copy
+Edit
+
 
 ---
 
@@ -48,18 +76,37 @@ Install dependencies:
 pip install -r requirements.txt
 
 ## 📜 Penjelasan Script
-     ```sh
-    extract_kertas.py, extract_logam.py, extract_plastik.py
-Ekstraksi fitur warna, bentuk, dan tekstur dari gambar di masing-masing folder dataset.
-    ```sh
-    combine_features.py
-    Menggabungkan semua file fitur menjadi satu dataset gabungan.
-   ```sh
-    train_classifiers.py
-Melatih model KNN dan SVM dari dataset gabungan.
-   ```sh
-    predict_image.py
-Melakukan prediksi jenis sampah dari gambar baru.
-    
-    test_image/
-    Contoh gambar untuk pengujian.
+
+- `extract_kertas.py`, `extract_logam.py`, `extract_plastik.py`  
+  Ekstraksi fitur warna, bentuk, dan tekstur dari gambar di masing-masing folder dataset.
+
+- `combine_features.py`  
+  Menggabungkan semua file fitur menjadi satu dataset gabungan.
+
+- `train_classifiers.py`  
+  Melatih model KNN dan SVM dari dataset gabungan, hasilnya file model `.pkl` di folder `models/`.
+
+- `predict_image.py`  
+  Melakukan prediksi jenis sampah dari gambar baru menggunakan model yang sudah dilatih.
+
+- `test_image/`  
+  Folder berisi contoh gambar untuk pengujian.
+
+---
+
+### Contoh Perintah Menjalankan Script
+
+```sh
+# Ekstraksi fitur
+python src/extract_kertas.py
+python src/extract_logam.py
+python src/extract_plastik.py
+
+# Gabungkan fitur
+python src/combine_features.py
+
+# Training model
+python src/train_classifiers.py
+
+# Prediksi gambar baru
+python src/predict_image.py
