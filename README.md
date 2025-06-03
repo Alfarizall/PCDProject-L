@@ -64,6 +64,7 @@ Prediksi jenis sampah dari gambar:
 Atur path gambar pada script atau input sesuai kebutuhan.
 
 ## 🛠️ Kebutuhan
+```bash
 Python 3.x
 OpenCV (opencv-python)
 scikit-learn
@@ -71,7 +72,7 @@ scikit-image
 numpy
 Install dependencies:
 pip install -r requirements.txt
-
+```
 ## 📜 Penjelasan Script
 
 - `extract_kertas.py`, `extract_logam.py`, `extract_plastik.py`  
