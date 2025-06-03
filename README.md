@@ -5,35 +5,32 @@ Klasifikasi Sampah Otomatis 🗑️ menggunakan Ekstraksi Fitur Citra dan Machin
 ---
 
 ## 📁 Struktur Folder
+
+```bash
 PCDProject-L/
 ├── dataset/
-│ ├── kertas/
-│ ├── logam/
-│ └── plastik/
+│   ├── kertas/
+│   ├── logam/
+│   └── plastik/
 ├── features/
-│ ├── kertas_features.csv
-│ ├── logam_features.csv
-│ ├── plastik_features.csv
-│ └── dataset_fitur_gabungan.csv
+│   ├── kertas_features.csv
+│   ├── logam_features.csv
+│   ├── plastik_features.csv
+│   └── dataset_fitur_gabungan.csv
 ├── models/
-│ ├── knn_model.pkl
-│ ├── svm_model.pkl
-│ └── label_encoder.pkl
+│   ├── knn_model.pkl
+│   ├── svm_model.pkl
+│   └── label_encoder.pkl
 ├── src/
-│ ├── extract_kertas.py
-│ ├── extract_logam.py
-│ ├── extract_plastik.py
-│ ├── combine_features.py
-│ ├── train_classifiers.py
-│ └── predict_image.py
+│   ├── extract_kertas.py
+│   ├── extract_logam.py
+│   ├── extract_plastik.py
+│   ├── combine_features.py
+│   ├── train_classifiers.py
+│   └── predict_image.py
 ├── test_image/
-│ └── sampel1.jpg
+│   └── sampel1.jpg
 └── requirements.txt
-
-yaml
-Copy
-Edit
-
 
 ---
 
