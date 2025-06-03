@@ -45,21 +45,26 @@ def extract_all_features(image):
     return np.array(c + s + t).reshape(1, -1)
 
 # --- Prediksi ---
-def predict_image(image_path, model_path, label_encoder_path):
-    img = cv2.imread(image_path)
-    if img is None:
-        print("Gambar tidak ditemukan atau tidak bisa dibuka.")
-        return
-    features = extract_all_features(img)
+# ...existing code...
+
+def predict_images_in_folder(folder_path, model_path, label_encoder_path):
     model = joblib.load(model_path)
     le = joblib.load(label_encoder_path)
-    pred = model.predict(features)
-    label = le.inverse_transform(pred)[0]
-    print(f"Gambar '{image_path}' diprediksi sebagai: {label}")
+    for file in os.listdir(folder_path):
+        if file.lower().endswith(('.png', '.jpg', '.jpeg')):
+            img_path = os.path.join(folder_path, file)
+            img = cv2.imread(img_path)
+            if img is None:
+                print(f"Gambar {file} tidak bisa dibuka.")
+                continue
+            features = extract_all_features(img)
+            pred = model.predict(features)
+            label = le.inverse_transform(pred)[0]
+            print(f"Gambar '{file}' diprediksi sebagai: {label}")
 
 if __name__ == "__main__":
     # Ganti path di bawah sesuai kebutuhan
-    image_path = "../test_image/sampel1.jpg"  # path gambar yang ingin diprediksi
-    model_path = "../models/svm_model.pkl"        # model hasil training
+    folder_path = "../test_image"  # folder berisi banyak gambar
+    model_path = "../models/svm_model.pkl"
     label_encoder_path = "../models/label_encoder.pkl"
-    predict_image(image_path, model_path, label_encoder_path)
+    predict_images_in_folder(folder_path, model_path, label_encoder_path)
