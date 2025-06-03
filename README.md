@@ -63,14 +63,18 @@ Prediksi jenis sampah dari gambar:
     python src/predict_image.py
 Atur path gambar pada script atau input sesuai kebutuhan.
 
-## 🛠️ Kebutuhan
-```bash
-Python 3.x
-OpenCV (opencv-python)
-scikit-learn
-scikit-image
-numpy
-Install dependencies:
+## 🛠️ Kebutuhan dan Instalasi
+
+### ✅ Kebutuhan:
+- Python 3.x
+- OpenCV (`opencv-python`)
+- scikit-learn
+- scikit-image
+- numpy
+
+### 📦 Instalasi Dependencies:
+Jalankan perintah berikut untuk menginstal semua dependencies:
+```sh
 pip install -r requirements.txt
 ```
 ## 📜 Penjelasan Script
