@@ -31,7 +31,7 @@ PCDProject-L/
 ├── test_image/
 │   └── sampel1.jpg
 └── requirements.txt
-
+```
 ---
 
 ## 🚀 Alur Penggunaan
@@ -42,7 +42,7 @@ PCDProject-L/
    python src/extract_kertas.py
    python src/extract_logam.py
    python src/extract_plastik.py
-
+   ```
 Hasil: file fitur .csv di folder features/.
 
 2. Gabungkan Fitur 🗃️
@@ -76,34 +76,34 @@ pip install -r requirements.txt
 
 - `extract_kertas.py`, `extract_logam.py`, `extract_plastik.py`  
   Ekstraksi fitur warna, bentuk, dan tekstur dari gambar di masing-masing folder dataset.
-
-- `combine_features.py`  
-  Menggabungkan semua file fitur menjadi satu dataset gabungan.
-
-- `train_classifiers.py`  
-  Melatih model KNN dan SVM dari dataset gabungan, hasilnya file model `.pkl` di folder `models/`.
-
-- `predict_image.py`  
-  Melakukan prediksi jenis sampah dari gambar baru menggunakan model yang sudah dilatih.
-
-- `test_image/`  
-  Folder berisi contoh gambar untuk pengujian.
-
----
-
-### Contoh Perintah Menjalankan Script
-
 ```sh
 # Ekstraksi fitur
 python src/extract_kertas.py
 python src/extract_logam.py
 python src/extract_plastik.py
+```
 
+- `combine_features.py`  
+  Menggabungkan semua file fitur menjadi satu dataset gabungan.
+```sh
 # Gabungkan fitur
 python src/combine_features.py
+```
 
+- `train_classifiers.py`  
+  Melatih model KNN dan SVM dari dataset gabungan, hasilnya file model `.pkl` di folder `models/`.
+```sh
 # Training model
 python src/train_classifiers.py
-
+```
+- `predict_image.py`  
+  Melakukan prediksi jenis sampah dari gambar baru menggunakan model yang sudah dilatih.
+```sh
 # Prediksi gambar baru
 python src/predict_image.py
+```
+- `test_image/`  
+  Folder berisi contoh gambar untuk pengujian.
+
+---
+
