@@ -47,9 +47,13 @@ def extract_all_features(image):
 # --- Prediksi ---
 # ...existing code...
 
-def predict_images_in_folder(folder_path, model_path, label_encoder_path):
-    model = joblib.load(model_path)
-    le = joblib.load(label_encoder_path)
+def predict_images_in_folder(folder_path, svm_model_path, knn_model_path, label_encoder_path):
+    with open(svm_model_path, "rb") as f:
+        svm_model = pickle.load(f)
+    with open(knn_model_path, "rb") as f:
+        knn_model = pickle.load(f)
+    with open(label_encoder_path, "rb") as f:
+        le = pickle.load(f)
     for file in os.listdir(folder_path):
         if file.lower().endswith(('.png', '.jpg', '.jpeg')):
             img_path = os.path.join(folder_path, file)
@@ -58,13 +62,20 @@ def predict_images_in_folder(folder_path, model_path, label_encoder_path):
                 print(f"Gambar {file} tidak bisa dibuka.")
                 continue
             features = extract_all_features(img)
-            pred = model.predict(features)
-            label = le.inverse_transform(pred)[0]
-            print(f"Gambar '{file}' diprediksi sebagai: {label}")
+            svm_pred = svm_model.predict(features)
+            knn_pred = knn_model.predict(features)
+
+            label_svm = le.inverse_transform(svm_pred)[0]
+            label_knn = le.inverse_transform(knn_pred)[0]
+
+            print(f"Gambar '{file}':")
+            print(f"  🔹 SVM Prediksi : {label_svm}")
+            print(f"  🔹 KNN Prediksi : {label_knn}")
+
 
 if __name__ == "__main__":
-    # Ganti path di bawah sesuai kebutuhan
-    folder_path = "../test_image"  # folder berisi banyak gambar
-    model_path = "../models/svm_model.pkl"
+    folder_path = "../test_image"
+    svm_model_path = "../models/svm_model.pkl"
+    knn_model_path = "../models/knn_model.pkl"
     label_encoder_path = "../models/label_encoder.pkl"
-    predict_images_in_folder(folder_path, model_path, label_encoder_path)
+    predict_images_in_folder(folder_path, svm_model_path, knn_model_path, label_encoder_path)
