@@ -6,7 +6,7 @@ Klasifikasi Sampah Otomatis 🗑️ menggunakan Ekstraksi Fitur Citra dan Machin
 
 
 ###
-Kelompok C6
+  Kelompok C6
 - Muhammad Alfarizal Hafidz   - 152023050
 - Muhammad Naufal Shidqi A    - 152023053
 - Gamma Dzauqy Al-Banna       - 152023112
