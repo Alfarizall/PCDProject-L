@@ -4,8 +4,8 @@ import numpy as np
 import csv
 from skimage.feature import graycomatrix, graycoprops
 
-# --- Fitur Warna ---
 def extract_color_features(image):
+    image = cv2.resize(image, (128, 128))
     chans = cv2.split(image)
     features = []
     for chan in chans:
@@ -14,8 +14,8 @@ def extract_color_features(image):
         features.extend(hist)
     return features
 
-# --- Fitur Bentuk (Hu Moments) ---
 def extract_shape_features(image):
+    image = cv2.resize(image, (128, 128))
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
     contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -28,8 +28,8 @@ def extract_shape_features(image):
         hu[i] = -1 * np.sign(hu[i]) * np.log10(abs(hu[i]) + 1e-10)
     return hu.tolist()
 
-# --- Fitur Tekstur (GLCM) ---
 def extract_texture_features(image):
+    image = cv2.resize(image, (128, 128))
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     glcm = graycomatrix(gray, distances=[1], angles=[0], symmetric=True, normed=True)
     contrast = graycoprops(glcm, 'contrast')[0,0]
@@ -40,15 +40,14 @@ def extract_texture_features(image):
     ASM = graycoprops(glcm, 'ASM')[0,0]
     return [contrast, dissimilarity, homogeneity, energy, correlation, ASM]
 
-def process_kertas(folder_path, output_csv):
+def process_kertas(folder_path, output_csv, output_image_dir):
+    os.makedirs(output_image_dir, exist_ok=True)
+
     with open(output_csv, 'w', newline='') as f:
         writer = csv.writer(f)
         header = []
-        # warna 32 bins x 3 channel
         header += [f'color_hist_{i}' for i in range(32*3)]
-        # bentuk Hu Moments 7
         header += [f'hu_moment_{i+1}' for i in range(7)]
-        # tekstur 6
         header += ['contrast','dissimilarity','homogeneity','energy','correlation','ASM']
         header.append('label')
         writer.writerow(header)
@@ -59,13 +58,35 @@ def process_kertas(folder_path, output_csv):
                 img = cv2.imread(path)
                 if img is None:
                     continue
+
+                # Ekstraksi fitur
                 c = extract_color_features(img)
                 s = extract_shape_features(img)
                 t = extract_texture_features(img)
                 row = c + s + t + ['kertas']
                 writer.writerow(row)
 
+                # Simpan output visualisasi citra
+                basename = os.path.splitext(file)[0]
+
+                # Original image resized
+                original_resized = cv2.resize(img, (128, 128))
+                cv2.imwrite(os.path.join(output_image_dir, f"{basename}_original.jpg"), original_resized)
+
+                # Shape (threshold + contour)
+                gray = cv2.cvtColor(original_resized, cv2.COLOR_BGR2GRAY)
+                _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
+                contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+                shape_img = original_resized.copy()
+                cv2.drawContours(shape_img, contours, -1, (0, 255, 0), 1)
+                cv2.imwrite(os.path.join(output_image_dir, f"{basename}_shape.jpg"), shape_img)
+
+                # Texture (grayscale only)
+                cv2.imwrite(os.path.join(output_image_dir, f"{basename}_gray.jpg"), gray)
+
+
 if __name__ == "__main__":
-    dataset_folder = os.path.join('..','dataset','kertas')
-    output_file = os.path.join('..','features','kertas_features.csv')
-    process_kertas(dataset_folder, output_file)
+    dataset_folder = os.path.join('..', 'dataset', 'kertas')
+    output_file = os.path.join('..', 'features', 'kertas_features.csv')
+    output_image_dir = os.path.join('..', 'output_samples', 'kertas')  # folder baru
+    process_kertas(dataset_folder, output_file, output_image_dir)
